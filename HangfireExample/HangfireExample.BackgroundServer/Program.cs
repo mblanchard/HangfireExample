@@ -9,8 +9,13 @@ namespace HangfireExample.BackgroundServer
     {
         static void Main(string[] args)
         {
-            
-            GlobalConfiguration.Configuration.UseSqlServerStorage("HangfireExample", new SqlServerStorageOptions { QueuePollInterval = TimeSpan.FromSeconds(1) });
+            Console.WindowHeight = 20;
+            // Hangfire storage configuration
+            GlobalConfiguration.Configuration.UseSqlServerStorage("HangfireExample", new SqlServerStorageOptions
+            {
+                QueuePollInterval = TimeSpan.FromSeconds(1) //Default is 15 seconds
+            });
+
             StartBackgroundJobServer();
            
         }
@@ -19,7 +24,7 @@ namespace HangfireExample.BackgroundServer
         {
             var serverOptions = HangfireHelpers.GenerateServerOptions();
             SetupStatus(serverOptions);
-            using (var server = new BackgroundJobServer(serverOptions))
+            using (var server = new BackgroundJobServer(serverOptions)) //Start Hangfire BackgroundJobServer, with demo-specific config
             {
                 var quitKeyPressed = false;
                 while (!quitKeyPressed) quitKeyPressed = Console.ReadKey().KeyChar == 'q';

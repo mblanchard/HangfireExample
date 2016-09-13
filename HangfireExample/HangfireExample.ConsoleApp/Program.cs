@@ -13,10 +13,11 @@ namespace HangfireExample.ConsoleApp
     {
         static void Main(string[] args)
         {
-
+            Console.WindowHeight = 20;
+            // Hangfire storage configuration
             GlobalConfiguration.Configuration.UseSqlServerStorage("HangfireExample", new SqlServerStorageOptions
             {
-                QueuePollInterval = TimeSpan.FromSeconds(1)
+                QueuePollInterval = TimeSpan.FromSeconds(1) //Default is 15 seconds
             });
 
             StartMockTaskClient();
@@ -26,7 +27,6 @@ namespace HangfireExample.ConsoleApp
         static void StartMockTaskClient()
         {
             HangfireHelpers.AddOrUpdateRecurringMockTasks();
-
             Console.WriteLine(@"    __  __                  _____              ____ ");
             Console.WriteLine(@"   / / / /___ _____  ____ _/ __(_)_______     / __ \___  ____ ___  ____ ");
             Console.WriteLine(@"  / /_/ / __ `/ __ \/ __ `/ /_/ / ___/ _ \   / / / / _ \/ __ `__ \/ __ \");
