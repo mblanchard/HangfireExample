@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace HangfireExample.Core
 {
-    public static class RequestConsumer
+    public class RequestConsumer
     {
-        public static void ProcessRequests()
+        public void ProcessRequests()
         {
             using (HangfireExampleContext _context = new HangfireExampleContext())
             {

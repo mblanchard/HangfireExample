@@ -14,7 +14,7 @@ namespace HangfireExample.Dashboard
     {
         public void Configuration(IAppBuilder app)
         {
-            HangfireHelpers.Init(shouldUpdateJobs: false);
+            GlobalConfiguration.Configuration.UseSqlServerStorage("HangfireExample", new SqlServerStorageOptions { QueuePollInterval = TimeSpan.FromSeconds(1) }); HangfireHelpers.AddOrUpdateRecurringMockTasks();
             app.UseHangfireDashboard();
         }
     }

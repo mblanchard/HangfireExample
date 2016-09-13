@@ -21,25 +21,67 @@ namespace HangfireExample.Core
             HangfireHelpers.LogStatus("Delayed Task Complete", ConsoleColor.White);
         }
 
-        public static void SlowTask()
+        [System.Diagnostics.DebuggerStepThrough]
+        public static void SlowTask(IJobCancellationToken cancellationToken)
         {
+            var workerId = HangfireHelpers.ClaimWorker("Slow Task");
+            if (workerId == -1) return;
             HangfireHelpers.LogStatus("Slow Task Started", ConsoleColor.White);
-            Thread.Sleep(20000); //I'm sorry
-            HangfireHelpers.LogStatus("Slow Task Complete", ConsoleColor.White);
+            try
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    Thread.Sleep(1000);
+                    cancellationToken.ThrowIfCancellationRequested();
+                }
+            }
+            finally
+            {
+                HangfireHelpers.LogStatus("Slow Task Complete", ConsoleColor.White);
+                HangfireHelpers.FreeWorker(workerId);
+            }
         }
 
-        public static void SlowerTask()
+        [System.Diagnostics.DebuggerStepThrough]
+        public static void SlowerTask(IJobCancellationToken cancellationToken)
         {
+            var workerId = HangfireHelpers.ClaimWorker("Slower Task");
+            if (workerId == -1) return;
             HangfireHelpers.LogStatus("Slower Task Started", ConsoleColor.White);
-            Thread.Sleep(180000); //I'm 9x sorrier
-            HangfireHelpers.LogStatus("Slower Task Complete", ConsoleColor.White);
+            try
+            {
+                for (int i = 0; i < 180; i++)
+                {
+                    Thread.Sleep(1000);
+                    cancellationToken.ThrowIfCancellationRequested();
+                }
+            }
+            finally
+            {
+                HangfireHelpers.LogStatus("Slower Task Complete", ConsoleColor.White);
+                HangfireHelpers.FreeWorker(workerId);
+            }
         }
 
-        public static void SlowestTask()
+        [System.Diagnostics.DebuggerStepThrough]
+        public static void SlowestTask(IJobCancellationToken cancellationToken)
         {
+            var workerId = HangfireHelpers.ClaimWorker("Slowest Task");
+            if (workerId == -1) return;
             HangfireHelpers.LogStatus("Slowest Task Started", ConsoleColor.White);
-            Thread.Sleep(1800000); //I'm sorriest
-            HangfireHelpers.LogStatus("Slowest Task Complete", ConsoleColor.White);
+            try
+            {
+                for (int i = 0; i < 1800; i++)
+                {
+                    Thread.Sleep(1000);
+                    cancellationToken.ThrowIfCancellationRequested();
+                }
+            }
+            finally
+            {
+                HangfireHelpers.LogStatus("Slowest Task Complete", ConsoleColor.White);
+                HangfireHelpers.FreeWorker(workerId);
+            }
         }
 
         [System.Diagnostics.DebuggerStepThrough]
