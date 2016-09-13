@@ -113,13 +113,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="aspnet-HangfireExample.Api-20160818022924.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="aspnet-HangfireExample.Api-20160818022924_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>aspnet-HangfireExample.Api-20160818022924.mdf</DependentUpon>
-    </Content>
     <Content Include="HangfireExampleEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>HangfireExampleEntities.edmx</DependentUpon>

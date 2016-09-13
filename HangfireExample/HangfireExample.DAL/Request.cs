@@ -15,9 +15,8 @@ namespace HangfireExample.DAL
     public partial class Request
     {
         public int Id { get; set; }
-        public string Key { get; set; }
-        public short Status { get; set; }
-        public bool IsVisible { get; set; }
-        public string Text { get; set; }
+        public string Name { get; set; }
+        public byte Status { get; set; }
+        public System.DateTimeOffset TimeCreated { get; set; }
     }
 }

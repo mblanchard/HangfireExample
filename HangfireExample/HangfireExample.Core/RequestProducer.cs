@@ -12,11 +12,13 @@ namespace HangfireExample.Core
 
         public static void CreateNewRequests()
         {
-            using (Entities _context = new Entities())
+            using (HangfireExampleContext _context = new HangfireExampleContext())
             {
                 var now = DateTime.Now;
-                _context.Requests.AddRange(Enumerable.Range(0, new Random().Next(10)).Select(x => new Request() { Text = String.Format("Task: {0}-{1}", now, x), Key = String.Format("{0}-{1}", now, x), Status = 0, IsVisible = true }).ToList());
+                _context.Requests.AddRange(Enumerable.Range(0, new Random().Next(10)).Select(x => new Request() { Name =  $"Task: {now}-{x}",  Status = 0, TimeCreated = DateTimeOffset.Now}).ToList());
                 _context.SaveChanges();
+                Console.WriteLine("New Requests Created");
+                HangfireHelpers.LogStatus("New Requests Created", ConsoleColor.Yellow);
             }
         }
 
